@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  background-color: #ffffff;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header styling */
+.header-section {
+  background-color: #efefef;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.header-title {
+  color: #2b6cb0; /* Vibrant professional blue */
+  font-size: 3.5rem;
+  margin: 0 0 1rem 0;
+  font-weight: bold;
+}
+
+.header-subtitle {
+  color: #1a1a1a;
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+/* About Section */
+.about-section {
+  background-color: #ffffff;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin: 0 0 1.5rem 0;
+  font-weight: bold;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: #333333;
+}
+
+/* Skills Section */
+.skills-section {
+  background-color: #efefef;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.skills-list {
+  display: inline-block;
+  text-align: left;
+  margin: 0 auto;
+  padding-left: 20px;
+}
+
+.skills-list-item {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #333333;
+}
+
+/* Footer Section */
+.footer-section {
+  background-color: #111111;
+  color: #ffffff;
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+
+.footer-contact {
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.footer-copyright {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin: 0;
+}
