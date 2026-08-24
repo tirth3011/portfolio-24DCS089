@@ -1,16 +1,41 @@
-# React + Vite
+# Advanced Web Development Framework (AWDF) Practical Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the practical lab submissions for the AWDF course, structured as independent, self-contained sub-projects.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📂 Practical Directory Index
 
-## React Compiler
+### 1. [Practical 1: React Component Architecture](./practical-1)
+- **Goal**: Set up a static student portfolio using Vite and modular, reusable React components (`Header`, `About`, `Skills`, `Footer`).
+- **Concepts**: Props data transmission, JSX rendering, CSS design custom properties.
+- **Run**: `cd practical-1 && npm install && npm run dev`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. [Practical 2: Routing & State Management](./practical-2)
+- **Goal**: Add multi-page navigation and dynamic state to the portfolio.
+- **Concepts**: React Router integration (`BrowserRouter`, `Routes`, `Link`), theme configuration toggling (dark/light), character count monitoring on controlled form inputs.
+- **Run**: `cd practical-2 && npm install && npm run dev`
 
-## Expanding the ESLint configuration
+### 3. [Practical 3: API Integration & Data Rendering](./practical-3)
+- **Goal**: Fetch dynamic repository information from the GitHub REST API.
+- **Concepts**: Hooks (`useEffect` for mounting requests, `useState` for async states), loading spinner, search query lists filter, failure/retry states handling.
+- **Run**: `cd practical-3 && npm install && npm run dev`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 4. [Practical 4: Express Task Manager Backend](./practical-4)
+- **Goal**: Construct a RESTful Express server to support CRUD operations.
+- **Concepts**: Pipeline middlewares (logging, content headers), global error catching exceptions handler, 404 response routing, mock database operations.
+- **Run**: `cd practical-4 && npm install && npm run dev`
+
+---
+
+## 🛠️ Global Requirements & Technologies
+- **Node.js** v18+
+- **npm** v9+
+- **Vite** & **React** (Frontend)
+- **Express.js** (Backend)
+
+---
+
+## 🧑‍💻 Student Information
+- **Name**: Tirth Patel
+- **Subject**: AWDF (Advanced Web Development Framework)
