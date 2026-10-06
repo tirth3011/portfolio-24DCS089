@@ -45,6 +45,29 @@ This repository contains the practical lab submissions for the AWDF course, stru
   - Backend: `cd practical-7/backend && npm install && npm test`
   - Frontend: `cd practical-7/frontend && npm install && npm run dev`
 
+### 8. [Practical 8: Performance Optimization & Lazy Loading in React](./practical-8)
+- **Goal**: Optimize frontend bundle size and initial load performance using route-based code splitting and dynamic imports.
+- **Concepts**: `React.lazy()` asynchronous component loading, `<Suspense>` boundary fallbacks, anti-flicker delay timers, component-level heavy chart lazy loading, Vite Rollup manualChunks configuration, empirical bundle size reduction (49.5% smaller initial download).
+- **Run**:
+  - Dev Server: `cd practical-8 && npm install && npm run dev` (Port 5175)
+  - Benchmark: `cd practical-8 && npm run benchmark`
+
+### 9. [Practical 9: In-Memory Caching and Query Optimization](./practical-9)
+- **Goal**: Implement server-side in-memory caching to eliminate redundant database reads, measure empirical latency reduction, and maintain deterministic cache invalidation on write mutations.
+- **Concepts**: `node-cache` process-local memory caching, `all_tasks` collection caching with 60s TTL, single-task item caching (`task_<id>`), deterministic invalidation hooks on `POST`, `PUT`, `DELETE`, real-time cache statistics telemetry (`hits`, `misses`, hit ratio), automated latency comparison (206x speedup, 99.5% latency reduction), interactive browser dashboard.
+- **Run**:
+  - Test Suite: `cd practical-9/backend && npm install && npm test`
+  - HTTP Benchmark: `cd practical-9/backend && npm run benchmark`
+  - Server & Dashboard: `cd practical-9/backend && npm start` (Port 5001)
+
+### 10. [Practical 10: Asynchronous Processing with Event-Driven Architecture](./practical-10)
+- **Goal**: Implement non-blocking background processing using Node.js native `EventEmitter` without external dependencies to deliver instant API responses while decoupled side-effect workers execute in the background.
+- **Concepts**: Node.js built-in `EventEmitter` singleton, decoupled `events.js` and `listeners.js` modules, `task-created` asynchronous dispatch, instant 201 Created response dispatch prior to background execution, `task-deleted` and `task-updated` auxiliary events, dedicated `error` event listener preventing server crashes, empirical timestamp verification proof (`T_api < T_worker`), interactive event telemetry stream.
+- **Run**:
+  - Test Suite: `cd practical-10/backend && npm install && npm test`
+  - HTTP Benchmark: `cd practical-10/backend && npm run benchmark`
+  - Server & Dashboard: `cd practical-10/backend && npm start` (Port 5002)
+
 ---
 
 ## 🛠️ Global Requirements & Technologies
@@ -54,6 +77,8 @@ This repository contains the practical lab submissions for the AWDF course, stru
 - **Express.js** (Backend)
 - **MongoDB** & **Mongoose ODM** (Database)
 - **JSON Web Token (JWT)** & **Bcrypt.js** (Authentication)
+- **node-cache** (In-Memory RAM Caching)
+- **Node.js native EventEmitter** (Event-Driven Background Processing)
 
 ---
 
