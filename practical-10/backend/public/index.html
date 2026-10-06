@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practical 10 - Asynchronous Processing with Event-Driven Architecture</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <header class="header">
+      <div class="header-left">
+        <span class="badge badge-primary">AWDF Practical 10</span>
+        <span class="badge badge-secondary">Tirth Patel (24DCS089)</span>
+        <h1>Event-Driven Asynchronous Processing</h1>
+        <p class="subtitle">Decoupling side effects using Node.js built-in EventEmitter to deliver instantaneous API responses while background workers execute</p>
+      </div>
+      <div class="header-right">
+        <button id="btnRunProbe" class="btn btn-probe">⚡ Launch Instant Response Probe</button>
+      </div>
+    </header>
+
+    <!-- Architecture Visual Banner -->
+    <div class="banner-box">
+      <div class="step-box">
+        <span class="step-num">1</span>
+        <span class="step-title">HTTP Request</span>
+        <span class="step-desc">POST /api/tasks</span>
+      </div>
+      <div class="arrow">➔</div>
+      <div class="step-box">
+        <span class="step-num">2</span>
+        <span class="step-title">MongoDB Save</span>
+        <span class="step-desc">Persisted in DB</span>
+      </div>
+      <div class="arrow">➔</div>
+      <div class="step-box active-step">
+        <span class="step-num">3</span>
+        <span class="step-title">Immediate 201 Response</span>
+        <span class="step-desc">Client unblocked in &lt;15ms</span>
+      </div>
+      <div class="arrow">➔</div>
+      <div class="step-box worker-step">
+        <span class="step-num">4</span>
+        <span class="step-title">Async EventEmitter</span>
+        <span class="step-desc">Notification worker (1.5s delay)</span>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="dashboard-grid">
+      <!-- Left: Controls & Form -->
+      <div class="panel">
+        <h2 class="panel-title">Task Dispatcher & Event Trigger</h2>
+        <p class="panel-desc">Submit a task with an artificial worker delay to prove live that the HTTP response arrives long before the background notification finishes.</p>
+
+        <form id="taskForm" class="task-form">
+          <div class="form-group">
+            <label>Task Title:</label>
+            <input type="text" id="taskTitle" value="Event-Driven Microservice Pipeline" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Priority:</label>
+              <select id="taskPriority">
+                <option value="high">High</option>
+                <option value="medium" selected>Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Assigned User:</label>
+              <input type="text" id="taskUser" value="Tirth Patel (24DCS089)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Simulated Async Worker Delay (ms):</label>
+            <input type="number" id="taskDelay" value="1500" min="200" max="10000" step="100">
+            <small class="helper-text">Simulates slow SMTP email dispatch or webhook delivery</small>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">🚀 Create Task & Dispatch Async Event</button>
+        </form>
+
+        <div class="action-section" style="margin-top: 1.5rem;">
+          <h3 style="font-size: 0.95rem; margin-bottom: 0.5rem; color: #cbd5e1;">Supplementary Event Triggers:</h3>
+          <div class="btn-row">
+            <button id="btnTriggerError" class="btn btn-outline-rose">⚠️ Dispatch Error Event (Safe Absorption)</button>
+            <button id="btnRefreshTelemetry" class="btn btn-outline-cyan">🔄 Refresh Telemetry</button>
+            <button id="btnClearTelemetry" class="btn btn-outline-muted">🗑️ Clear Logs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live Timestamp Ordering Verification -->
+      <div class="panel">
+        <div class="panel-header-inline">
+          <h2 class="panel-title">Real-Time Timestamp Ordering Proof</h2>
+          <span id="timingStatusBadge" class="status-pill status-ready">READY</span>
+        </div>
+
+        <div class="chronology-card">
+          <div class="chronology-item">
+            <span class="chrono-label">1. Client Request Sent:</span>
+            <span id="txtChronoRequest" class="chrono-val">--</span>
+          </div>
+          <div class="chronology-item highlight-api">
+            <span class="chrono-label">2. API Response Received:</span>
+            <span id="txtChronoApi" class="chrono-val">--</span>
+            <span id="txtApiLatency" class="chrono-badge">-- ms latency</span>
+          </div>
+          <div class="chronology-item highlight-worker">
+            <span class="chrono-label">3. Background Worker Completed:</span>
+            <span id="txtChronoWorker" class="chrono-val">--</span>
+            <span id="txtWorkerLag" class="chrono-badge">-- ms lag</span>
+          </div>
+        </div>
+
+        <div class="proof-assertion" id="proofAssertionBox">
+          <span class="proof-title">Mathematical Verification:</span>
+          <p id="proofText">Awaiting test execution. Submit a task to verify timestamp ordering.</p>
+        </div>
+
+        <div class="telemetry-log-table">
+          <h3 style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.5rem;">Background Event Stream Log:</h3>
+          <div class="log-stream-box" id="logStreamBox">
+            <p style="color: #64748b; font-size: 0.8rem;">No events logged yet. Trigger an action above.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
