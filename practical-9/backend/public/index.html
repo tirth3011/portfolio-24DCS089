@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practical 9 - In-Memory Caching & Query Optimization</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <header class="header">
+      <div class="header-left">
+        <span class="badge badge-primary">AWDF Practical 9</span>
+        <span class="badge badge-secondary">Tirth Patel (24DCS089)</span>
+        <h1>In-Memory Caching & Query Optimization</h1>
+        <p class="subtitle">Accelerating Express & MongoDB read latency using process-local node-cache with write-through invalidation</p>
+      </div>
+      <div class="header-right">
+        <button id="btnRunBenchmark" class="btn btn-benchmark">⚡ Run Live Benchmark (5x5)</button>
+      </div>
+    </header>
+
+    <!-- Metrics Bar -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <span class="metric-label">Cache Hits</span>
+        <span id="metricHits" class="metric-val text-success">0</span>
+        <span class="metric-sub">RAM responses</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Cache Misses</span>
+        <span id="metricMisses" class="metric-val text-warning">0</span>
+        <span class="metric-sub">Database queries</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Hit Ratio</span>
+        <span id="metricHitRate" class="metric-val text-primary">0%</span>
+        <span class="metric-sub">Efficiency ratio</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Active Keys</span>
+        <span id="metricKeys" class="metric-val">0</span>
+        <span class="metric-sub">TTL: 60s</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Last Latency</span>
+        <span id="metricLastLatency" class="metric-val text-cyan">-- ms</span>
+        <span id="metricLastSource" class="metric-sub">Idle</span>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="dashboard-grid">
+      <!-- Left Column: Interactive Controls -->
+      <div class="panel">
+        <h2 class="panel-title">Interactive Query Inspector</h2>
+        <p class="panel-desc">Execute REST endpoints to observe caching, cache invalidation, and latency deltas in real-time.</p>
+
+        <div class="action-group">
+          <label class="control-label">Read Operations (GET):</label>
+          <div class="button-row">
+            <button id="btnFetchNormal" class="btn btn-outline-cyan">📥 GET /api/tasks (Cache Check)</button>
+            <button id="btnFetchForceBypass" class="btn btn-outline-warning">⚡ GET /api/tasks?noCache=true</button>
+          </div>
+          <div class="button-row" style="margin-top: 0.5rem;">
+            <button id="btnFetchSingle" class="btn btn-outline-purple">🔍 GET Single Task (:id)</button>
+            <button id="btnRefreshStats" class="btn btn-outline-blue">📊 Refresh Stats</button>
+          </div>
+        </div>
+
+        <div class="action-group" style="margin-top: 1.5rem;">
+          <label class="control-label">Write Operations & Invalidation (POST / PUT / DELETE):</label>
+          <div class="input-row">
+            <input id="inputNewTask" type="text" placeholder="Enter task title..." value="Optimize caching indexing structure">
+            <button id="btnCreateTask" class="btn btn-success">➕ Create & Invalidate Cache</button>
+          </div>
+          <div class="button-row" style="margin-top: 0.5rem;">
+            <button id="btnClearCache" class="btn btn-danger">🗑️ Flush All Cache (Manual Purge)</button>
+          </div>
+        </div>
+
+        <div class="benchmark-results-box" id="benchmarkResultsBox" style="display: none;">
+          <h3>📊 Live Benchmark Results</h3>
+          <div id="benchmarkSummaryText"></div>
+          <div class="comparison-bars">
+            <div class="bar-container">
+              <span class="bar-label">MongoDB Uncached:</span>
+              <div class="bar-track"><div id="barUncached" class="bar-fill bar-warning" style="width: 100%;"></div></div>
+              <span id="barUncachedVal" class="bar-val">-- ms</span>
+            </div>
+            <div class="bar-container">
+              <span class="bar-label">node-cache Hit:</span>
+              <div class="bar-track"><div id="barCached" class="bar-fill bar-success" style="width: 10%;"></div></div>
+              <span id="barCachedVal" class="bar-val">-- ms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Live Output & Logs -->
+      <div class="panel">
+        <div class="panel-header-inline">
+          <h2 class="panel-title">Response & Header Telemetry</h2>
+          <span id="badgeCacheStatus" class="status-pill status-idle">STANDBY</span>
+        </div>
+
+        <div class="telemetry-bar">
+          <div class="telemetry-item">
+            <span class="telemetry-lbl">HTTP Status:</span>
+            <span id="txtHttpStatus" class="telemetry-v">--</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-lbl">X-Cache:</span>
+            <span id="txtXCache" class="telemetry-v">--</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-lbl">Response Time:</span>
+            <span id="txtRespTime" class="telemetry-v">--</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-lbl">Storage Source:</span>
+            <span id="txtSource" class="telemetry-v">--</span>
+          </div>
+        </div>
+
+        <div class="log-container">
+          <div class="log-header">
+            <span>Server Response Data (JSON)</span>
+            <button id="btnClearLog" class="btn-sm">Clear</button>
+          </div>
+          <pre id="jsonViewer">Click any button on the left to execute an API request and inspect live caching metrics...</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

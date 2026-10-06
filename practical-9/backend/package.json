@@ -1,0 +1,21 @@
+{
+  "name": "practical-9-backend-caching",
+  "version": "1.0.0",
+  "description": "Practical 9: In-Memory Caching and Query Optimization using node-cache and MongoDB",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test_cache.js",
+    "benchmark": "node benchmark.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0",
+    "node-cache": "^5.1.2"
+  },
+  "author": "Tirth Patel (24DCS089)",
+  "license": "ISC"
+}
