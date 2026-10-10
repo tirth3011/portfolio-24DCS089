@@ -3,6 +3,7 @@ const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const authRoutes = require("./routes/authRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const errorHandler = require("./middleware/errorHandler");
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // API Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
 // Health check endpoint
@@ -37,7 +39,7 @@ app.get("/api/health", (req, res) => {
 // Central Error Handler
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5009;
 
 // Only start listening if executed directly (not when required for tests)
 if (require.main === module) {
