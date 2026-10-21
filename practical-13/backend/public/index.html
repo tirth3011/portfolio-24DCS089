@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practical 13: AI API Integration with Responsible AI Governance</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <header class="header">
+      <div>
+        <div class="badge-group">
+          <span class="badge badge-ai">Gemini / OpenAI API</span>
+          <span class="badge badge-primary">AI Task Assistant</span>
+        </div>
+        <h1>AI-Powered Smart Task Assistant</h1>
+        <p class="subtitle">Secure server-side API integration, automatic description synthesis, and graceful error degradation</p>
+      </div>
+      <div>
+        <span class="badge" style="background:rgba(0, 245, 155, 0.15);color:#00f59b;border:1px solid rgba(0, 245, 155, 0.4);padding:8px 16px;">
+          ● AI Status: Resilient / Active
+        </span>
+      </div>
+    </header>
+
+    <!-- Responsible AI & Privacy Disclaimer Banner -->
+    <div class="disclaimer-banner">
+      <span style="font-size:1.4rem;">🛡️</span>
+      <div>
+        <strong>Responsible AI & Privacy Safeguard:</strong> All prompts are stripped of passwords, tokens, and PII prior to external transmission. Generated text is purely advisory and must be reviewed and accepted by the user before persistence.
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Left: AI Synthesis Studio -->
+      <div class="panel">
+        <h2 class="panel-title">✨ AI Task Synthesizer</h2>
+        <p class="panel-desc">Enter a title, then trigger server-side AI to auto-generate context-aware descriptions, priority, and deadlines.</p>
+
+        <div class="form-group">
+          <label>Task Title:</label>
+          <input type="text" id="taskTitle" value="Containerize Microservice Stack with Docker Compose" placeholder="e.g. Implement OAuth 2.0 Login..." required>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-bottom:16px;">
+          <button id="btnGenerateAi" class="btn btn-ai">
+            <span id="aiBtnSpinner" style="display:none;">⏳</span>
+            <span>✨ Synthesize with AI</span>
+          </button>
+        </div>
+
+        <!-- Editable Suggestion Drawer -->
+        <div class="suggestion-box" id="suggestionBox" style="display:none;">
+          <div class="suggestion-header">
+            <span style="font-size:0.85rem;font-weight:700;color:#c77dff;" id="suggestionProvider">
+              🤖 Provider: Intelligent Engine
+            </span>
+            <span class="badge" style="background:rgba(255, 170, 0, 0.2);color:#ffaa00;" id="suggestionBadge">
+              AI Suggestion
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>Editable Description:</label>
+            <textarea id="aiDescOutput"></textarea>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+            <div class="form-group">
+              <label>Suggested Priority:</label>
+              <select id="aiPriorityOutput">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Estimated Hours:</label>
+              <input type="number" id="aiHoursOutput" value="3" min="1" max="40">
+            </div>
+          </div>
+
+          <div class="tag-list" id="aiTagsOutput"></div>
+
+          <p style="font-size:0.75rem;color:#8b9bb4;margin:12px 0 16px;" id="aiDisclaimerText">
+            ⚠️ AI-generated suggestion. Please review and edit before saving.
+          </p>
+
+          <button id="btnAcceptSuggestion" class="btn btn-save" style="width:100%;">
+            ✔ Accept & Save Task
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Persistent Tasks Stream -->
+      <div class="panel">
+        <h2 class="panel-title">📋 Verified Tasks ({count})</h2>
+        <p class="panel-desc">Tasks saved with AI assistance indicators and human review badges.</p>
+        <div class="task-list" id="taskList">
+          <!-- Loaded via app.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

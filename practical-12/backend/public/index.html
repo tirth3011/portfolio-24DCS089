@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practical 12: CI/CD Pipeline with GitHub Actions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <header class="header">
+      <div>
+        <div class="badge-group">
+          <span class="badge badge-gh">GitHub Actions CI/CD</span>
+          <span class="badge badge-primary">Automated Workflow</span>
+        </div>
+        <h1>Automated Testing & Delivery Pipeline</h1>
+        <p class="subtitle">Continuous Integration workflow triggered on push/PR with dependency caching, linting, and unit assertions</p>
+      </div>
+      <div class="actions-group">
+        <button id="btnToggleFail" class="btn btn-toggle">⚠️ Trigger Test Failure Demo</button>
+        <button id="btnReRun" class="btn btn-run">🔄 Re-run Workflow</button>
+      </div>
+    </header>
+
+    <!-- Main Pipeline Status Banner -->
+    <div class="status-banner" id="statusBanner">
+      <div class="status-indicator">
+        <div class="status-icon status-success" id="statusIcon">✔</div>
+        <div>
+          <div class="status-title" id="statusTitle">Workflow: build-and-test (Passing)</div>
+          <div class="status-meta" id="statusMeta">Commit: 0fbc4ea (main) • Triggered via push • Duration: 24s</div>
+        </div>
+      </div>
+      <div>
+        <span class="badge" id="statusBadge" style="background:#238636;color:#fff;font-size:0.85rem;padding:6px 14px;">passing</span>
+      </div>
+    </div>
+
+    <div class="pipeline-grid">
+      <!-- Left: Workflow Steps -->
+      <div class="panel">
+        <h2 class="panel-title">📑 Pipeline Step Execution</h2>
+        <p class="panel-desc">Defined stages from <code>.github/workflows/ci.yml</code>.</p>
+
+        <div class="pipeline-steps">
+          <div class="step-row">
+            <div class="step-info">
+              <span class="step-check" style="color:#3fb950;">✔</span>
+              <span class="step-name">1. actions/checkout@v4</span>
+            </div>
+            <span class="step-duration">2s</span>
+          </div>
+
+          <div class="step-row">
+            <div class="step-info">
+              <span class="step-check" style="color:#3fb950;">✔</span>
+              <span class="step-name">2. actions/setup-node@v4 (Node 18.x)</span>
+            </div>
+            <span class="step-duration">1s</span>
+          </div>
+
+          <div class="step-row">
+            <div class="step-info">
+              <span class="step-check" style="color:#3fb950;">✔</span>
+              <span class="step-name">3. Run npm install (Dependencies)</span>
+            </div>
+            <span class="step-duration">4s</span>
+          </div>
+
+          <div class="step-row">
+            <div class="step-info">
+              <span class="step-check" style="color:#3fb950;">✔</span>
+              <span class="step-name">4. Run npm run lint (ESLint Quality Check)</span>
+            </div>
+            <span class="step-duration">2s</span>
+          </div>
+
+          <div class="step-row" id="testStepRow">
+            <div class="step-info">
+              <span class="step-check" id="testStepIcon" style="color:#3fb950;">✔</span>
+              <span class="step-name" id="testStepName">5. Run npm test (Automated Test Suite)</span>
+            </div>
+            <span class="step-duration" id="testStepDuration">3s</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live Runner Terminal Logs -->
+      <div class="panel">
+        <h2 class="panel-title">🖥️ GitHub Actions Runner Logs</h2>
+        <p class="panel-desc">Real-time log capture from the virtual runner environment.</p>
+        <pre class="runner-terminal" id="terminalLogs">Loading runner logs...</pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

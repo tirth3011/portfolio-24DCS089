@@ -86,3 +86,8 @@ export const getCacheStats = async () => {
 export const clearCache = async () => {
   return request("/tasks/cache/clear", { method: "DELETE" });
 };
+
+export const getBenchmarkCompare = async () => {
+  return request("/tasks/benchmark/compare", { method: "GET" });
+};
+

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext(null);
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5008/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5009/api";
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem("token") || null);
@@ -78,6 +78,19 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
+  const loginDemoUser = async () => {
+    try {
+      return await login("demo@charusat.edu.in", "Password123!");
+    } catch {
+      try {
+        await register("Tirth Patel (24DCS089)", "demo@charusat.edu.in", "Password123!");
+        return await login("demo@charusat.edu.in", "Password123!");
+      } catch (err) {
+        console.error("Demo login failed:", err);
+      }
+    }
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -93,6 +106,7 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         login,
         register,
+        loginDemoUser,
         logout
       }}
     >

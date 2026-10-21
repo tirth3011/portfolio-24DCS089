@@ -68,6 +68,32 @@ This repository contains the practical lab submissions for the AWDF course, stru
   - HTTP Benchmark: `cd practical-10/backend && npm run benchmark`
   - Server & Dashboard: `cd practical-10/backend && npm start` (Port 5002)
 
+### 11. [Practical 11: Containerization with Docker & Docker Compose](./practical-11)
+- **Goal**: Package and orchestrate a multi-tier full-stack web application (React frontend, Node.js/Express backend, MongoDB database) into isolated, portable Docker containers using Docker Compose.
+- **Concepts**: Multi-stage Dockerfile build for React Vite frontend (`node:18-alpine` build + preview server), Node.js Alpine runtime backend container, official MongoDB 6.0 image, isolated user-defined bridge network (`app-network`), persistent named volume (`mongo-data`), `.dockerignore` context pruning, single-command orchestration (`docker-compose up --build`).
+- **Run**:
+  - Full Compose Stack: `cd practical-11 && docker-compose up --build`
+  - Verification & Self-Test: `cd practical-11 && node test_docker.js`
+  - Backend Telemetry: `http://localhost:5011`
+  - Frontend Application: `http://localhost:5178`
+
+### 12. [Practical 12: CI/CD Pipeline with GitHub Actions](./practical-12)
+- **Goal**: Automate code verification, automated testing, and build pipelines using GitHub Actions workflows with continuous status reporting and branch protection checks.
+- **Concepts**: GitHub Actions workflow syntax (`.github/workflows/ci.yml`), matrix testing strategy, multi-stage pipeline execution (checkout, dependency caching, linting, test suite execution, build artifact generation), demonstration of deliberate pipeline failure (Red X on broken validation) vs fixed green pass (Green checkmark), README workflow status badges.
+- **Run**:
+  - Automated Unit Tests: `cd practical-12/backend && npm test`
+  - Pipeline Simulation Runner: `cd practical-12/backend && npm run test:pipeline`
+  - Live Dashboard & Failure Toggle: `cd practical-12/backend && npm start` (Port 5012)
+  - Frontend Visual Pipeline: `cd practical-12/frontend && npm run dev` (Port 5179)
+
+### 13. [Practical 13: AI API Integration into Web Application](./practical-13)
+- **Goal**: Integrate external AI capabilities (Google Gemini / OpenAI REST APIs) into a full-stack web application via a secure, resilient backend proxy with intelligent fallback mechanisms.
+- **Concepts**: Backend-only API proxy isolating secret keys via `.env`, multi-pattern PII and credential sanitization regex engine before prompt dispatch, sliding-window IP rate limiting, graceful degradation fallback heuristic engine ensuring 100% application uptime during upstream API outages, editable UI suggestion drawer, Responsible AI disclaimer.
+- **Run**:
+  - Resilience & Sanitizer Test Suite: `cd practical-13/backend && npm test`
+  - Backend AI Studio & Proxy: `cd practical-13/backend && npm start` (Port 5013)
+  - Frontend AI Task Synthesizer: `cd practical-13/frontend && npm run dev` (Port 5180)
+
 ---
 
 ## 🛠️ Global Requirements & Technologies
@@ -79,6 +105,9 @@ This repository contains the practical lab submissions for the AWDF course, stru
 - **JSON Web Token (JWT)** & **Bcrypt.js** (Authentication)
 - **node-cache** (In-Memory RAM Caching)
 - **Node.js native EventEmitter** (Event-Driven Background Processing)
+- **Docker** & **Docker Compose** (Multi-Container Virtualization & Orchestration)
+- **GitHub Actions** (Continuous Integration & Automated Testing Pipeline)
+- **Google Gemini API / AI Services** (Generative AI Task Intelligence)
 
 ---
 
@@ -87,3 +116,4 @@ This repository contains the practical lab submissions for the AWDF course, stru
 - **ID**: 24DCS089
 - **Subject**: ITUE301 - Advanced Web Development Framework (AWDF)
 - **Branch**: Computer Science & Engineering (DEPSTAR)
+

@@ -1,0 +1,19 @@
+{
+  "name": "practical-11-docker-compose-backend",
+  "version": "1.0.0",
+  "description": "Practical 11: Containerization with Docker and Docker Compose (Node/Express Backend)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test_docker.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0"
+  },
+  "author": "Tirth Patel (24DCS089)",
+  "license": "ISC"
+}

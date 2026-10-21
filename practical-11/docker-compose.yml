@@ -1,0 +1,61 @@
+version: '3.8'
+
+# Practical 11: Containerization with Docker and Docker Compose
+# Student: Tirth Patel (24DCS089) | ITUE301 AWDF | DEPSTAR CSE
+
+services:
+  # 1. React Frontend Service (Multi-stage Vite container)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: awdf-p11-frontend
+    ports:
+      - "5178:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5011/api
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # 2. Node.js / Express Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: awdf-p11-backend
+    ports:
+      - "5011:5011"
+    environment:
+      - PORT=5011
+      - MONGO_URI=mongodb://mongodb:27017/taskdb_p11
+      - NODE_ENV=production
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # 3. Official MongoDB Database Service
+  mongodb:
+    image: mongo:6.0
+    container_name: awdf-p11-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+    restart: unless-stopped
+
+# Isolated internal bridge network for inter-container communication
+networks:
+  app-network:
+    driver: bridge
+
+# Named volume for persistent database storage across container restarts
+volumes:
+  mongo-data:
+    driver: local

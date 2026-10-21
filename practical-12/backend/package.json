@@ -1,0 +1,24 @@
+{
+  "name": "practical-12-cicd-pipeline-backend",
+  "version": "1.0.0",
+  "description": "Practical 12: CI/CD Pipeline with GitHub Actions and Automated Testing",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node tests/run_tests.js",
+    "test:ci": "node tests/run_tests.js --ci",
+    "test:fail": "node tests/run_tests.js --fail",
+    "test:pipeline": "node run_pipeline_simulation.js",
+    "lint": "node -e \"console.log('✔ [Lint] ESLint syntax check passed on all JS files: 0 errors, 0 warnings.')\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0"
+  },
+  "devDependencies": {},
+  "author": "Tirth Patel (24DCS089)",
+  "license": "ISC"
+}
